@@ -48,7 +48,7 @@ Then you can run:
 ```sh
 $ make up
 ```
-And navigate to ` http://localhost:8000`.
+And navigate to [`http://localhost:8000`](http://localhost:8000).
 
 ## Pre-commit hooks
 
