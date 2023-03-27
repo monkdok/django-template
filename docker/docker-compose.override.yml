@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      target: builder
+    env_file:
+      - ./.env/.env.dev
+    command: ["scripts/entrypoint.sh", "backend_dev"]
+
+  db:
+    env_file:
+      - ./.env/.env.dev

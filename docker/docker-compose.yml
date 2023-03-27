@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  web:
+    container_name: django_app
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: builder
+    restart: always
+    volumes:
+      - ../app:/django_app/app
+      - ../static:/django_app/static
+      - ../media:/django_app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: ["scripts/entrypoint.sh", "backend_dev"]
+
+  db:
+    container_name: django_app_db
+    image: postgres:14-alpine
+    networks:
+      default:
+        aliases:
+          - db
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+volumes:
+  pgdata:

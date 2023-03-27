@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      target: production
+    env_file:
+      - ./.env/.env.prod
+    command: ["scripts/entrypoint.sh", "backend_prod"]
+
+  db:
+    env_file:
+      - ./.env/.env.prod
+
+  nginx:
+    depends_on:
+      - web
+    image: nginx:1.15.7-alpine
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ../static:/django_project/static
+      - ../media:/django_project/media
+    ports:
+      - "8080:80"
